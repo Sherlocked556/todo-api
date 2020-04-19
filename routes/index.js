@@ -49,28 +49,33 @@ router.post('/signup',(req,res)=>
     })
   }
 })
-
+})
 router.post("/login",(req,res)=>
 {
- 
+ console.log(1)
   User.findOne({username:req.body.username},(err,found_user)=>
   {
     if (err) {
       res.json(err)
-    } else {
-      if(crypto.createHash('md5').update(req.body.password).digest('hex')==found_user.password)
+      console.log(2)
+    } else if(!found_user)
+    {res.json("incorrect username")
+    }
+      else{if(crypto.createHash('md5').update(req.body.password).digest('hex')==found_user.password)
       {
-        res.redirect("/"+created_user._id+"/get")
+        console.log(3)
+        res.redirect("/"+found_user._id+"/get")
       }
       else
-      {
+      { console.log(4)
         res.json("incorrect password");
       }
     }
   })
-})
 
 })
+
+
 router.get("/:id/get",(req,res)=>
 {
 User.findById(req.params.id,(err,found_user)=>
