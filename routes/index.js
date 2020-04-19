@@ -25,7 +25,7 @@ router.post('/signup',(req,res)=>
 {
   if (err) {
     res.json(err)
-  } else if (found_user.username!=null){
+  } else if (found_user){
     res.json('please login youve already registered')
   }
   else
